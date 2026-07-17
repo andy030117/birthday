@@ -63,7 +63,7 @@
 
     .screen {
       min-height: calc(min(820px, 100vh - 48px) - 18px);
-      padding: 42px 20px 22px;
+      padding: 24px 20px 20px;
       background:
         radial-gradient(circle at 25% 0%, rgba(255,255,255,.24), transparent 25%),
         linear-gradient(180deg, rgba(255,255,255,.08), transparent 42%),
@@ -425,8 +425,7 @@
         border-radius: 0;
       }
       .phone::before { display: none; }
-      .screen { min-height: 100vh; padding-top: max(20px, env(safe-area-inset-top)); }
-      .status { padding-top: 3px; }
+      .screen { min-height: 100vh; padding-top: max(16px, env(safe-area-inset-top)); }
     }
   </style>
 </head>
@@ -435,11 +434,6 @@
 
   <main class="phone">
     <section class="screen">
-      <div class="status">
-        <span id="clock">12:00</span>
-        <span class="icons">5G  ◔  ▰</span>
-      </div>
-
       <section id="lockView">
         <div class="cover-wrap">
           <div class="cover-photo" id="coverPhoto"></div>
@@ -483,7 +477,6 @@
       </div>
 
       <div class="float" id="float"></div>
-      <div class="homebar"></div>
     </section>
   </main>
 
@@ -501,31 +494,10 @@
     const OPENING_VIDEO = "photos/opening.mp4";
 
     const PHOTOS = [
-      {
-        src: "photos/cover.jpg",
-        title: "첫 번째 추억", 
-        date: "함께한 시간",
-        caption: "이곳에 사진 설명을 적어주세요."
-      },
-      {
-        src: "photos/cover.jpg",
-        title: "두 번째 추억",
-        date: "소중한 어느 날",
-        caption: "사진과 어울리는 문장을 넣으면 더 예뻐요."
-      },
-      {
-        src: "photos/cover.jpg",
-        title: "세 번째 추억",
-        date: "잊고 싶지 않은 순간",
-        caption: "오래 기억하고 싶은 장면을 담아주세요."
-      },
-      {
-        src: "photos/cover.jpg",
-        title: "앞으로 더 많이",
-        date: "오늘, 그리고 앞으로",
-        caption: "생일 축하해요. 앞으로도 좋은 날들이 가득하길."
-      }
-    ];
+      { src: "photos/001.jpg" },
+      { src: "photos/002.jpg" },
+      { src: "photos/003.jpg" }
+    ]
 
     const lockView = document.getElementById("lockView");
     const galleryView = document.getElementById("galleryView");
@@ -536,19 +508,7 @@
     const error = document.getElementById("error");
     const timeline = document.getElementById("timeline");
     const photoCount = document.getElementById("photoCount");
-    const clock = document.getElementById("clock");
     const coverPhoto = document.getElementById("coverPhoto");
-
-    function updateClock() {
-      const now = new Date();
-      clock.textContent = now.toLocaleTimeString("ko-KR", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-      });
-    }
-    updateClock();
-    setInterval(updateClock, 1000 * 30);
 
     function addOption(select, value, label, disabled = false, selected = false) {
       const option = document.createElement("option");
