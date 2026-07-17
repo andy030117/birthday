@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Happy Birthday</title>
+  <style>
+    :root {
+      --bg: #a19fe7;
+      --phone: #10131f;
+      --screen: #a19fe7;
+      --card: rgba(255,255,255,.18);
+      --card2: rgba(255,255,255,.28);
+      --text: #fff;
+      --sub: rgba(255,255,255,.78);
+      --accent: #ffffff;
+      --accent2: #e9e7ff;
+      --good: #75f0b1;
+      --bad: #fff1f4;
+      --shadow: 0 30px 80px rgba(44,38,112,.35);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,255,255,.35), transparent 22%),
+        radial-gradient(circle at 88% 25%, rgba(255,255,255,.22), transparent 24%),
+        linear-gradient(135deg, #a19fe7, #a19fe7);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .phone {
+      width: min(390px, 100%);
+      min-height: min(820px, calc(100vh - 48px));
+      background: linear-gradient(145deg, #232144, #11112c);
+      border: 9px solid #05060b;
+      border-radius: 46px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 112px;
+      height: 27px;
+      border-radius: 0 0 18px 18px;
+      background: #05060b;
+      z-index: 10;
+    }
+
+    .screen {
+      min-height: calc(min(820px, 100vh - 48px) - 18px);
+      padding: 42px 20px 22px;
+      background:
+        radial-gradient(circle at 25% 0%, rgba(255,255,255,.24), transparent 25%),
+        linear-gradient(180deg, rgba(255,255,255,.08), transparent 42%),
+        var(--screen);
+      position: relative;
+    }
+
+    .status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: rgba(255,255,255,.94);
+      margin-bottom: 20px;
+      padding: 0 8px;
+      text-shadow: 0 1px 8px rgba(0,0,0,.12);
+    }
+
+    .icons {
+      letter-spacing: 2px;
+      font-size: 12px;
+      opacity: .9;
+    }
+
+    .cover-wrap {
+      padding: 12px 2px 8px;
+    }
+
+    .cover-photo {
+      min-height: 330px;
+      border-radius: 34px;
+      overflow: hidden;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.32);
+      box-shadow: 0 20px 50px rgba(62,54,147,.26);
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .cover-photo img {
+      width: 100%;
+      height: 330px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cover-fallback {
+      width: 100%;
+      height: 330px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 28px;
+      line-height: 1.6;
+      color: rgba(255,255,255,.95);
+      background:
+        radial-gradient(circle at 32% 20%, rgba(255,255,255,.42), transparent 18%),
+        radial-gradient(circle at 82% 70%, rgba(255,255,255,.26), transparent 20%),
+        linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.04));
+    }
+
+    .cover-fallback b {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .cover-note {
+      margin: 10px 4px 0;
+      color: rgba(255,255,255,1);
+      font-size: 25px;
+      font-weight: 550;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .card {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.14));
+      border: 1px solid rgba(255,255,255,.32);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 12px 34px rgba(74,62,160,.18);
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,.9);
+      font-weight: 700;
+    }
+
+    .date-row {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr .85fr;
+      gap: 8px;
+    }
+
+    select {
+      width: 100%;
+      border: 0;
+      outline: none;
+      padding: 14px 8px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.38);
+      color: #39356d;
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      text-align-last: center;
+      appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, #6d67ba 50%),
+        linear-gradient(135deg, #6d67ba 50%, transparent 50%);
+      background-position:
+        calc(100% - 15px) 50%,
+        calc(100% - 10px) 50%;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      margin-top: 13px;
+      padding: 15px 16px;
+      border-radius: 18px;
+      color: #504aa0;
+      font-weight: 900;
+      font-size: 15px;
+      background: linear-gradient(90deg, #ffffff, #f0efff);
+      box-shadow: 0 12px 30px rgba(68,60,148,.24);
+      cursor: pointer;
+      transition: transform .14s ease, filter .14s ease;
+    }
+
+    button:active { transform: scale(.98); }
+
+    .error {
+      min-height: 0;
+      margin-top: 10px;
+      text-align: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      text-shadow: 0 1px 10px rgba(70,55,145,.28);
+    }
+
+    .hidden { display: none !important; }
+
+    .gallery-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 8px 2px 16px;
+    }
+
+    .gallery-head h2 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: -0.8px;
+    }
+
+    .gallery-head p {
+      margin: 5px 0 0;
+      color: var(--sub);
+      font-size: 13px;
+    }
+
+    .pill {
+      flex: 0 0 auto;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.22);
+      color: rgba(255,255,255,.9);
+      font-size: 12px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+      padding-bottom: 18px;
+    }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 480px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.28);
+      transform: translateY(22px);
+      opacity: 0;
+      animation: rise .64s ease forwards;
+      box-shadow: 0 12px 32px rgba(67,57,146,.18);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 480px;
+      object-fit: contain;
+      display: block;
+      filter: saturate(1.07) contrast(1.02);
+      background: rgba(255,255,255,.1);
+      cursor: zoom-in;
+    }
+
+    .photo-card video {
+      width: 100%;
+      height: 480px;
+      object-fit: contain;
+      display: block;
+      background: rgba(0,0,0,.18);
+    }
+
+    .photo-card .fallback {
+      height: 480px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      text-align: center;
+      line-height: 1.5;
+      color: rgba(255,255,255,.94);
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.28), transparent 18%),
+        linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+    }
+
+    .gallery-controls {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .gallery-controls button {
+      margin-top: 0;
+      padding: 13px 12px;
+    }
+
+    .page-indicator {
+      min-width: 70px;
+      text-align: center;
+      color: rgba(255,255,255,.92);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .zoom-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0,0,0,.86);
+      backdrop-filter: blur(8px);
+    }
+
+    .zoom-modal.open {
+      display: flex;
+    }
+
+    .zoom-modal img {
+      max-width: 100%;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 18px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+
+    .zoom-close {
+      position: fixed;
+      top: max(16px, env(safe-area-inset-top));
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.92);
+      color: #39356d;
+      font-size: 25px;
+      font-weight: 900;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+
+    .message {
+      margin: 18px 0 8px;
+      padding: 18px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.28);
+      line-height: 1.65;
+      color: rgba(255,255,255,.92);
+      font-size: 14px;
+      box-shadow: 0 12px 32px rgba(67,57,146,.12);
+    }
+
+    .homebar {
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+      width: 134px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.48);
+    }
+
+    .float {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -30px;
+      font-size: 19px;
+      opacity: .0;
+      animation: floatUp 6.5s linear infinite;
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    @keyframes rise {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      14% { opacity: .85; }
+      100% { transform: translateY(-900px) rotate(32deg); opacity: 0; }
+    }
+
+    @media (max-width: 430px) {
+      body { padding: 0; background: #a19fe7; }
+      .phone {
+        width: 100%;
+        min-height: 100vh;
+        border: 0;
+        border-radius: 0;
+      }
+      .phone::before { display: none; }
+      .screen { min-height: 100vh; padding-top: max(20px, env(safe-area-inset-top)); }
+      .status { padding-top: 3px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+
+  <main class="phone">
+    <section class="screen">
+      <div class="status">
+        <span id="clock">12:00</span>
+        <span class="icons">5G  ◔  ▰</span>
+      </div>
+
+      <section id="lockView">
+        <div class="cover-wrap">
+          <div class="cover-photo" id="coverPhoto"></div>
+          <p class="cover-note"> 엄마의 환갑을 축하합니다!!</p>
+        </div>
+
+        <div class="card">
+          <label class="label">생일 날짜를 선택해 주세요.</label>
+          <div class="date-row">
+            <select id="yearSelect" aria-label="년도"></select>
+            <select id="monthSelect" aria-label="월"></select>
+            <select id="daySelect" aria-label="일"></select>
+          </div>
+          <button id="unlockBtn">앨범 열기</button>
+          <div id="error" class="error"></div>
+        </div>
+      </section>
+
+      <section id="galleryView" class="hidden">
+        <div class="gallery-head">
+          <div>
+            <h2>엄마의 시간 🎉</h2>
+            <p>환갑을 기념하기 위한 추억이 담긴 앨범</p>
+          </div>
+          <div class="pill" id="photoCount">0 photos</div>
+        </div>
+
+        <div class="message" id="birthdayMessage">
+          엄마, 환갑을 진심으로 축하합니다!
+          앞으로도 건강하고 행복한 웃음만 가득한 날들이 이어지길 바라요.
+          늘 지금처럼 우리 가족 곁에서 오래오래 함께해 주세요. 사랑합니다.
+
+        </div>
+
+        <div class="timeline" id="timeline"></div>
+      </section>
+
+      <div class="zoom-modal" id="zoomModal" aria-hidden="true">
+        <button type="button" class="zoom-close" id="zoomCloseBtn" aria-label="닫기">×</button>
+        <img id="zoomImage" src="" alt="확대 사진">
+      </div>
+
+      <div class="float" id="float"></div>
+      <div class="homebar"></div>
+    </section>
+  </main>
+
+  <script>
+    /*
+      ====== 여기만 바꾸면 됩니다 ======
+
+      1) 정답 생일은 1966-07-27로 설정해두었습니다.
+      2) 첫 화면 사진을 넣으려면 index.html 옆에 photos 폴더를 만들고
+         cover.jpg 파일을 넣으세요.
+      3) 앨범 사진도 photos 폴더에 넣고 PHOTOS 배열의 src를 바꾸면 됩니다.
+    */
+    const CORRECT_BIRTHDAY = "1966-07-27";
+    const COVER_IMAGE = "photos/cover.jpg";
+    const OPENING_VIDEO = "photos/opening.mp4";
+
+    const PHOTOS = [
+      {
+        src: "photos/cover.jpg",
+        title: "첫 번째 추억", 
+        date: "함께한 시간",
+        caption: "이곳에 사진 설명을 적어주세요."
+      },
+      {
+        src: "photos/cover.jpg",
+        title: "두 번째 추억",
+        date: "소중한 어느 날",
+        caption: "사진과 어울리는 문장을 넣으면 더 예뻐요."
+      },
+      {
+        src: "photos/cover.jpg",
+        title: "세 번째 추억",
+        date: "잊고 싶지 않은 순간",
+        caption: "오래 기억하고 싶은 장면을 담아주세요."
+      },
+      {
+        src: "photos/cover.jpg",
+        title: "앞으로 더 많이",
+        date: "오늘, 그리고 앞으로",
+        caption: "생일 축하해요. 앞으로도 좋은 날들이 가득하길."
+      }
+    ];
+
+    const lockView = document.getElementById("lockView");
+    const galleryView = document.getElementById("galleryView");
+    const yearSelect = document.getElementById("yearSelect");
+    const monthSelect = document.getElementById("monthSelect");
+    const daySelect = document.getElementById("daySelect");
+    const btn = document.getElementById("unlockBtn");
+    const error = document.getElementById("error");
+    const timeline = document.getElementById("timeline");
+    const photoCount = document.getElementById("photoCount");
+    const clock = document.getElementById("clock");
+    const coverPhoto = document.getElementById("coverPhoto");
+
+    function updateClock() {
+      const now = new Date();
+      clock.textContent = now.toLocaleTimeString("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      });
+    }
+    updateClock();
+    setInterval(updateClock, 1000 * 30);
+
+    function addOption(select, value, label, disabled = false, selected = false) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      option.disabled = disabled;
+      option.selected = selected;
+      select.appendChild(option);
+    }
+
+    function setupDateSelectors() {
+      addOption(yearSelect, "", "년도", true, true);
+      for (let y = new Date().getFullYear(); y >= 1900; y--) {
+        addOption(yearSelect, String(y), `${y}년`);
+      }
+
+      addOption(monthSelect, "", "월", true, true);
+      for (let m = 1; m <= 12; m++) {
+        addOption(monthSelect, String(m).padStart(2, "0"), `${m}월`);
+      }
+
+      addOption(daySelect, "", "일", true, true);
+      updateDays();
+
+      yearSelect.addEventListener("change", updateDays);
+      monthSelect.addEventListener("change", updateDays);
+    }
+
+    function updateDays() {
+      const previous = daySelect.value;
+      daySelect.innerHTML = "";
+      addOption(daySelect, "", "일", true, true);
+
+      const year = Number(yearSelect.value || 2000);
+      const month = Number(monthSelect.value || 1);
+      const lastDay = new Date(year, month, 0).getDate();
+
+      for (let d = 1; d <= lastDay; d++) {
+        const value = String(d).padStart(2, "0");
+        addOption(daySelect, value, `${d}일`);
+      }
+
+      if (previous && Number(previous) <= lastDay) {
+        daySelect.value = previous;
+      }
+    }
+
+    function renderCover() {
+      const img = document.createElement("img");
+      img.src = COVER_IMAGE;
+      img.alt = "첫 화면 사진";
+      coverPhoto.appendChild(img);
+    }
+
+    function unlock() {
+      const year = yearSelect.value;
+      const month = monthSelect.value;
+      const day = daySelect.value;
+
+      if (!year || !month || !day) {
+        error.textContent = "날짜를 모두 선택해 주세요.";
+        shake();
+        return;
+      }
+
+      const selectedBirthday = `${year}-${month}-${day}`;
+
+      if (selectedBirthday === CORRECT_BIRTHDAY) {
+        error.textContent = "";
+        lockView.classList.add("hidden");
+        galleryView.classList.remove("hidden");
+        renderPhotos();
+        burstConfetti();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        error.textContent = "날짜가 맞지 않아요. 다시 선택해 주세요.";
+        shake();
+      }
+    }
+
+    function shake() {
+      const card = document.querySelector(".card");
+      card.animate([
+        { transform: "translateX(0)" },
+        { transform: "translateX(-8px)" },
+        { transform: "translateX(8px)" },
+        { transform: "translateX(0)" }
+      ], { duration: 240, easing: "ease-in-out" });
+    }
+
+    let currentPhotoIndex = 0;
+
+    function getAlbumItems() {
+      const items = [];
+
+      if (OPENING_VIDEO) {
+        items.push({
+          type: "video",
+          src: OPENING_VIDEO
+        });
+      }
+
+      PHOTOS.forEach((photo, index) => {
+        items.push({
+          type: "image",
+          src: photo.src,
+          title: photo.title || `사진 ${index + 1}`
+        });
+      });
+
+      return items;
+    }
+
+    function renderPhotos() {
+      currentPhotoIndex = 0;
+      showPhoto(currentPhotoIndex);
+    }
+
+    function showPhoto(index) {
+      const albumItems = getAlbumItems();
+
+      timeline.innerHTML = "";
+      photoCount.textContent = `${index + 1} / ${albumItems.length}`;
+
+      const item = albumItems[index];
+      const card = document.createElement("article");
+      card.className = "photo-card";
+
+      if (item.type === "video") {
+        card.innerHTML = `
+          <video controls playsinline preload="metadata">
+            <source src="${escapeHtml(item.src)}" type="video/mp4">
+            이 브라우저에서는 영상을 재생할 수 없습니다.
+          </video>
+        `;
+      } else {
+        const altText = item.title || `사진 ${index + 1}`;
+        card.innerHTML = item.src
+          ? `<img src="${escapeHtml(item.src)}" alt="${escapeHtml(altText)}" onerror="this.replaceWith(makeFallback('${escapeJs(altText)}'))">`
+          : `<div class="fallback">📸<br><small>사진 파일을 넣어주세요</small></div>`;
+
+        const img = card.querySelector("img");
+        if (img) {
+          img.addEventListener("click", () => openZoom(img.src, img.alt));
+        }
+      }
+
+      const controls = document.createElement("div");
+      controls.className = "gallery-controls";
+      controls.innerHTML = `
+        <button type="button" id="prevPhotoBtn">이전</button>
+        <div class="page-indicator">${index + 1} / ${albumItems.length}</div>
+        <button type="button" id="nextPhotoBtn">다음</button>
+      `;
+
+      timeline.appendChild(card);
+      timeline.appendChild(controls);
+
+      document.getElementById("prevPhotoBtn").addEventListener("click", () => {
+        currentPhotoIndex = (currentPhotoIndex - 1 + albumItems.length) % albumItems.length;
+        showPhoto(currentPhotoIndex);
+      });
+
+      document.getElementById("nextPhotoBtn").addEventListener("click", () => {
+        currentPhotoIndex = (currentPhotoIndex + 1) % albumItems.length;
+        showPhoto(currentPhotoIndex);
+      });
+    }
+
+    function makeFallback(title) {
+      const div = document.createElement("div");
+      div.className = "fallback";
+      div.innerHTML = `📸<br><small>사진 파일 경로를 확인해주세요</small>`;
+      return div;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeJs(str) {
+      return String(str).replaceAll("\\", "\\\\").replaceAll("'", "\\'");
+    }
+
+
+    const zoomModal = document.getElementById("zoomModal");
+    const zoomImage = document.getElementById("zoomImage");
+    const zoomCloseBtn = document.getElementById("zoomCloseBtn");
+
+    function openZoom(src, alt) {
+      zoomImage.src = src;
+      zoomImage.alt = alt || "확대 사진";
+      zoomModal.classList.add("open");
+      zoomModal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeZoom() {
+      zoomModal.classList.remove("open");
+      zoomModal.setAttribute("aria-hidden", "true");
+      zoomImage.src = "";
+    }
+
+    zoomCloseBtn.addEventListener("click", closeZoom);
+    zoomModal.addEventListener("click", (event) => {
+      if (event.target === zoomModal) closeZoom();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && zoomModal.classList.contains("open")) {
+        closeZoom();
+      }
+    });
+
+    btn.addEventListener("click", unlock);
+    setupDateSelectors();
+    renderCover();
+
+    // floating hearts
+    const floatLayer = document.getElementById("float");
+    const heartSymbols = ["💗", "🎈", "✨", "🎂", "💫"];
+    for (let i = 0; i < 24; i++) {
+      const heart = document.createElement("span");
+      heart.className = "heart";
+      heart.textContent = heartSymbols[i % heartSymbols.length];
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.animationDelay = `${Math.random() * 6}s`;
+      heart.style.animationDuration = `${5 + Math.random() * 5}s`;
+      floatLayer.appendChild(heart);
+    }
+
+    // simple confetti
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    let pieces = [];
+    let confettiTimer = null;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth * devicePixelRatio;
+      canvas.height = window.innerHeight * devicePixelRatio;
+      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    function burstConfetti() {
+      const colors = ["#ffffff", "#f0efff", "#dad8ff", "#fff1f4", "#efeefe"];
+      pieces = Array.from({ length: 150 }, () => ({
+        x: window.innerWidth / 2,
+        y: window.innerHeight * 0.22,
+        vx: (Math.random() - 0.5) * 9,
+        vy: Math.random() * -8 - 3,
+        size: Math.random() * 7 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rot: Math.random() * Math.PI,
+        vr: (Math.random() - 0.5) * 0.28,
+        life: 120 + Math.random() * 50
+      }));
+
+      if (confettiTimer) cancelAnimationFrame(confettiTimer);
+      tickConfetti();
+    }
+
+    function tickConfetti() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      pieces.forEach(p => {
+        p.vy += 0.16;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
+        p.life -= 1;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.56);
+        ctx.restore();
+      });
+
+      pieces = pieces.filter(p => p.life > 0 && p.y < window.innerHeight + 40);
+
+      if (pieces.length) {
+        confettiTimer = requestAnimationFrame(tickConfetti);
+      } else {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      }
+    }
+  </script>
+</body>
+</html>
