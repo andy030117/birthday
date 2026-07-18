@@ -38,7 +38,7 @@
     }
 
     .phone {
-      width: min(390px, 100%);
+      width: min(450px, 100%);
       min-height: min(820px, calc(100vh - 48px));
       background: linear-gradient(145deg, #232144, #11112c);
       border: 9px solid #05060b;
@@ -46,19 +46,6 @@
       box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
-    }
-
-    .phone::before {
-      content: "";
-      position: absolute;
-      top: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 112px;
-      height: 27px;
-      border-radius: 0 0 18px 18px;
-      background: #05060b;
-      z-index: 10;
     }
 
     .screen {
@@ -93,7 +80,7 @@
     }
 
     .cover-photo {
-      min-height: 330px;
+      min-height: 430px;
       border-radius: 34px;
       overflow: hidden;
       background: rgba(255,255,255,.18);
@@ -106,14 +93,14 @@
 
     .cover-photo img {
       width: 100%;
-      height: 330px;
+      height: 430px;
       object-fit: cover;
       display: block;
     }
 
     .cover-fallback {
       width: 100%;
-      height: 330px;
+      height: 430px;
       display: grid;
       place-items: center;
       text-align: center;
@@ -161,20 +148,20 @@
 
     .date-row {
       display: grid;
-      grid-template-columns: 1.15fr .85fr .85fr;
-      gap: 8px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
     }
 
     select {
       width: 100%;
       border: 0;
       outline: none;
-      padding: 14px 8px;
+      padding: 15px 12px;
       border-radius: 16px;
       background: rgba(255,255,255,.92);
       border: 1px solid rgba(255,255,255,.38);
       color: #39356d;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       text-align: center;
       text-align-last: center;
@@ -424,7 +411,6 @@
         border: 0;
         border-radius: 0;
       }
-      .phone::before { display: none; }
       .screen { min-height: 100vh; padding-top: max(16px, env(safe-area-inset-top)); }
     }
   </style>
@@ -462,7 +448,7 @@
         </div>
 
         <div class="message" id="birthdayMessage">
-          엄마, 환갑을 진심으로 축하합니다!
+          엄마의 환갑을 진심으로 축하합니다!
           앞으로도 건강하고 행복한 웃음만 가득한 날들이 이어지길 바라요.
           늘 지금처럼 우리 가족 곁에서 오래오래 함께해 주세요. 사랑합니다.
 
@@ -493,11 +479,9 @@
     const COVER_IMAGE = "photos/cover.jpg";
     const OPENING_VIDEO = "photos/opening.mp4";
 
-    const PHOTOS = [
-      { src: "photos/001.jpg" },
-      { src: "photos/002.jpg" },
-      { src: "photos/003.jpg" }
-    ]
+    const PHOTOS = Array.from({ length: 129 }, (_, i) => ({
+      src: `photos/${String(i + 1).padStart(3, "0")}.jpg`
+    }));
 
     const lockView = document.getElementById("lockView");
     const galleryView = document.getElementById("galleryView");
